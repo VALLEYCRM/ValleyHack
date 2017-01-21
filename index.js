@@ -50,10 +50,10 @@ var customerSchema = new mongoose.Schema({
   cusEmail : String,
 });
 
-const organizationalDataAlreadyGiven =(req,res,next)=>{
+const organizationalDataAlreadyGiven =(req,res,next) =>{
 
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
-
+    console.log(Organization);
     if (Organization) {
         res.redirect('/customer'+Organization.orgName)
     } else {
