@@ -49,7 +49,7 @@ var customerSchema = new mongoose.Schema({
   cusEmail : String,
 });
 
-var customerSchema = mongoose.model("Customer", customerSchema);
+var Customer = mongoose.model("Customer", customerSchema);
 
 
 app.get("/", function(req, res) {
