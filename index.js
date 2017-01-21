@@ -10,6 +10,7 @@ var express = require("express"),
     let URL = "mongodb://heroku_j1647s3l:tkmie8pbencj50ljm1d688h87e@ds117919.mlab.com:17919/heroku_j1647s3l";
 
 
+
     MongoClient.connect(URL, function(err, db) {
      if (err) {
        URL = 'mongodb://localhost:27017/mydatabase';
@@ -49,6 +50,19 @@ var customerSchema = new mongoose.Schema({
   cusEmail : String,
 });
 
+const organizationalDataAlreadyGiven =(req,res,next)=>{
+
+  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
+
+    if (Organization) {
+        res.redirect('/customer'+Organization.orgName)
+    } else {
+      next();
+    }
+};
+
+
+
 var Customer = mongoose.model("Customer", customerSchema);
 
 
@@ -64,7 +78,7 @@ app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
   res.render("newOrganization");
 });
 
-app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
+app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyGiven, function(req, res) {
   console.log("MY BODY!!!", req.body);
   var orgName = req.body.orgName;
   var givenName = req.body.givenName;
