@@ -23,6 +23,8 @@ var express = require("express"),
 console.log("HERE I AM!!!",process.env.STORMPATH_API_KEY_ID)
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
+app.use(bodyParser.urlencoded());
+app.use(bodyParser.json());
 app.use(express.static(__dirname + "/public"));
 app.use(stormpath.init(app, {
   apiKeyFile: '/.stormpath/apiKey.properties',
