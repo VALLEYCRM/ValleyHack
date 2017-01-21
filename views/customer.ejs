@@ -61,11 +61,14 @@
   $.post('/getCustomerInfo',{},function(res,err){
     console.log(res,err);
     localStorage.setItem('customerInfo',JSON.stringify(res));
+
+    info=JSON.parse(localStorage.getItem('customerInfo'));
+    for (let i=0; i<info.length;i++){
+      $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].cusEmail}</td><td>${"BLAH BLAH"}</td></tr>`);
+    }
+
   });
 //}
-info=JSON.parse(localStorage.getItem('customerInfo'));
-for (let i=0; i<info.length;i++){
-  $('tbody').prepend(`<tr><td>${info[i].name}</td><td>${info[i].email}</td><td>${"BLAH BLAH"}</td></tr>`);
-}
+
 </script>
 <%include partials/footer %>
