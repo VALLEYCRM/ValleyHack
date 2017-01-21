@@ -4,6 +4,19 @@ var express = require("express"),
     mongoose = require("mongoose");
     app = express();
 
+    let URL = "mongodb://heroku_j1647s3l:tkmie8pbencj50ljm1d688h87e@ds117919.mlab.com:17919/heroku_j1647s3l";
+
+
+    MongoClient.connect(URL, function(err, db) {
+     if (err) {
+       URL = 'mongodb://localhost:27017/mydatabase';
+     } else {
+       URL = process.env.URL;
+     }
+     db.close();
+    });
+    mongoose.connect(URL);
+
 console.log("HERE I AM!!!",process.env.STORMPATH_API_KEY_ID)
 app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
@@ -16,6 +29,22 @@ app.use(stormpath.init(app, {
   application: process.env.STORMPATH_URL || "url",
 }));
 
+var organizationSchema = new mongoose.Schema({
+  orgName : String,
+  givenName : String,
+  surname : String,
+});
+
+var Organization = mongoose.model("Organization", organizationSchema);
+
+var customerSchema = new mongoose.Schema({
+  custFirstName : String,
+  custLastName : String,
+  custAddress : String,
+  cusEmail : String,
+});
+
+var customerSchema = mongoose.model("Customer", costomerSchema);
 
 
 app.get("/", function(req, res) {
@@ -26,9 +55,20 @@ app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
   res.render("newOrganization");
 });
 
-// app.post("/newOrganiztation", function(req, res) {
-//   rep.send()
-// })
+app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
+  var orgName = req.body.orgName;
+  var givenName = req.body.givenName;
+  var surname = req.body.surname;
+  var newOrganization = {orgName: orgName, givenName: givenName, surname: surname};
+
+  Organization.create(newOrganization, function(err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/customer")
+    }
+  });
+});
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
