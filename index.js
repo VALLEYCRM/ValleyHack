@@ -162,7 +162,7 @@ for (let i =0; i<people.length;i++){
    to: people[i][3], // list of receivers
    subject: header, // Subject line
    text: `Dear ${people[i][0]}\n` + message, // plaintext body
-   html: `Dear ${people[i][0]}<br>,`+ message+`<a href="https://mighty-mountain-31348.herokuapp.com/redirect/` + ""+people+""+ `>Interested</a>`
+   html: `Dear ${people[i][0]}<br>,`+ message+`<a href="https://mighty-mountain-31348.herokuapp.com/redirect/` + ""+people[i][3]+""+ `>Interested</a>`
 , // html body
 };
 
