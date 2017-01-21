@@ -252,7 +252,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
             to: people[i][3], // list of receivers
             subject: header, // Subject line
             text: `Dear ${people[i][0]}\n` + message, // plaintext body
-            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" +""+website +"/"+ people[i][3] + "'" + ">Interested</a>", // html body
+            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" +""+ website +"/"+ people[i][3] + "'" + ">Interested</a>", // html body
           };
 
           transporter.sendMail(mailOptions, function(error, info) {
@@ -287,6 +287,7 @@ app.get('/redirect/*', function(req, res) {
     });
 
     app.get('*', (req, res) => {
+      res.redirect("http://google.com");
       console.log('caught a case!')
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 console.log(fullUrl);
