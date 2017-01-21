@@ -56,8 +56,14 @@ app.get("/", function(req, res) {
   res.render("landing");
 });
 
-app.get("/customer", stormpath.loginRequired, function(req, res) {
-  res.render("customer");
+app.get("/customer:id", stormpath.loginRequired, function(req, res) {
+  console.log('johnbullll',req.params.orgName );
+  Organization.findById(req.params.orgName, function(err, foundOrganization) {
+  if(err) {
+    console.log(err);
+  } else {
+    res.render("customer", {organization: foundOrganization});
+  }
 });
 
 
@@ -76,7 +82,7 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/customer")
+      res.redirect("/customer" + orgName)
     }
   });
 });
