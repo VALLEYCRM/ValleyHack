@@ -57,12 +57,12 @@
 
 
 
-if (!localStorage.getItem('customerInfo')){
+//if (!localStorage.getItem('customerInfo')){
   $.post('/getCustomerInfo',{},function(res,err){
     console.log(res,err);
     localStorage.setItem('customerInfo',JSON.stringify(res));
   });
-}
+//}
 info=JSON.parse(localStorage.getItem('customerInfo'));
 for (let i=0; i<info.length;i++){
   $('tbody').prepend(`<tr><td>${info[i].name}</td><td>${info[i].email}</td><td>${"BLAH BLAH"}</td></tr>`);
