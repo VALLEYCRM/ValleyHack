@@ -107,9 +107,9 @@ app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyG
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   console.log('JOHNBULLISWRONG!', req.body);
-  var custFirstName = req.body.custFirstName;
-  var custLastName = req.body.custLastName;
-  var custAddress = req.body.custAddress;
+  var custFirstName = req.body.cusFirstName;
+  var custLastName = req.body.cusLastName;
+  var custAddress = req.body.cusAddress;
   var cusEmail = req.body.cusEmail;
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, organization) {
     console.log("here is ORG!", organization);
