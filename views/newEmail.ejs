@@ -4,7 +4,8 @@ const blast = () => {
   toBlast = {
     message: $("#message").val(),
     header: $("#header").val(),
-    people: {}
+    people: {},
+    website: $("#website").val(),
   }
 
   $.each($('input[type="checkbox"]'), function(i) {
@@ -28,11 +29,15 @@ const blast = () => {
 
 <div class="ui form" id="emailForm">
   <div class="field">
-    <h1 class="lebelText">Email Header</h1>
+    <h class="lebelText">Email Header</h2>
     <input id="header" type="text" name="emailHeader" placeholder="Email Header">
   </div>
   <div class="field">
-    <h1 class="labelText">Email Body</h1>
+    <h2 class="lebelText">Redirect To</h2>
+    <input id="website" type="text" name="website" placeholder="Webpage you want customer to be directed to">
+  </div>
+  <div class="field">
+    <h2 class="labelText">Email Body</h2>
     <div class="field">
         <textarea id="message" placeholder="Type your email here."></textarea>
       </div>  </div>

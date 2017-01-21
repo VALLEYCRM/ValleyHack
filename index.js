@@ -46,6 +46,7 @@ var organizationSchema = new mongoose.Schema({
   orgName: String,
   givenName: String,
   surname: String,
+  website: String,
 });
 
 var Organization = mongoose.model("Organization", organizationSchema);
@@ -57,6 +58,8 @@ var customerSchema = new mongoose.Schema({
   cusEmail: String,
   organization: String,
   clicks: Array,
+  lastEmailed: Number,
+  nextScheduled:Number,
 });
 
 const organizationalDataAlreadyGiven = (req, res, next) => {
@@ -102,7 +105,7 @@ app.get("/customer:id", stormpath.loginRequired, function(req, res) {
   });
 });
 
-app.get("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyGiven, function(req, res) {
+app.get("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyGiven,function(req, res) {
   res.render("newOrganization");
 });
 
@@ -111,10 +114,13 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
   var orgName = req.body.orgName;
   var givenName = req.body.givenName;
   var surname = req.body.surname;
+  var website = req.body.website;
+
   var newOrganization = {
-    orgName: orgName,
-    givenName: givenName,
-    surname: surname
+    orgName,
+    givenName,
+    surname,
+    website,
   };
 
   Organization.create(newOrganization, function(err, newlyCreated) {
@@ -181,6 +187,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
   const message = req.body.message;
   const header = req.body.header;
   const people = req.body.people;
+  const website = req.body.website;
   console.log(message, header, people);
 
   for (let i = 0; i < people.length; i++) {
@@ -190,22 +197,33 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
       cusEmail: people[i][3]
     }, function(err, person) {
       var clickArray = person[0].clicks;
-      if (!!clickArray.length) {
+      var lastEmailed = person[0].lastEmailed;
+      var nextScheduled = person[0].nextScheduled;
+      var currentMill = (new Date()).getTime();
+      var dontEmail = (currentMill - lastEmailed) < 604800000;
+      if (!!clickArray.length && !dontEmail) {
 
         var latestTime = clickArray[clickArray.length - 1];
         var milliseconds = latestTime.getTime();
-        var currentMill = (new Date()).getTime();
+
         while (milliseconds < currentMill) {
           milliseconds += 604800000;
         };
         var nextEmail = (new Date(milliseconds));
-
+        if (nextScheduled-currentMill<604800000){
+          return;
+        }
+        Customer.update({cusEmail: people[i][3]}, {nextScheduled:nextEmail},function(err, response){
+          console.log(err,response);
+        });
 
         console.log(latestTime, "<Letest time", nextEmail, "This the next week", people[i][3]);
         var CronJob = require('cron').CronJob;
 
+
         var job = new CronJob(nextEmail, function() {
 
+
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
             to: people[i][3], // list of receivers
@@ -219,18 +237,22 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
               return console.log(error);
             }
             console.log('Message sent: ' + info.response);
+            Customer.update({cusEmail: people[i][3]}, {lastEmailed:nextEmail},  function(err,affected) {
+              console.log('affected rows %d', affected);
+            })
           });
         }, function() {
+
           console.log("Done");
         }, true)
-      } else {
+      } else if(!dontEmail) {
 
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
             to: people[i][3], // list of receivers
             subject: header, // Subject line
             text: `Dear ${people[i][0]}\n` + message, // plaintext body
-            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" + people[i][3] + "'" + ">Interested</a>", // html body
+            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" +""+website +"/"+ people[i][3] + "'" + ">Interested</a>", // html body
           };
 
           transporter.sendMail(mailOptions, function(error, info) {
@@ -238,6 +260,9 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
               return console.log(error);
             }
             console.log('Message sent: ' + info.response);
+            Customer.update({cusEmail: people[i][3]}, {lastEmailed:currentMill},  function(err,affected) {
+              console.log('affected rows %d', affected);
+            })
           });
       }
     });
@@ -252,12 +277,14 @@ app.get('/redirect/*', function(req, res) {
       console.log("visited2");
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
       var email =  fullUrl.slice(fullUrl.lastIndexOf('/')+1);
+      var website= fullUrl.slice(53).slice(0,fullUrl.slice(53).indexOf('/'));
+
       console.log(email);
       time = new Date();
       Customer.update({cusEmail: email}, {$push: {clicks: time}}, function(err, model) {
         console.log(err);
       });
-      res.redirect('https://www.google.com/')
+      res.redirect(website);
     });
 
     app.get('*', (req, res) => {

@@ -1,6 +1,13 @@
 <% include partials/header %>
 
 <script>
+const logout=()=>{
+  var form = document.createElement('form');
+  form.method = "POST";
+  form.action = "/logout";
+  form.submit();
+};
+
 
 $.post('/getCustomerInfo',{},function(res,err){
   console.log(res,err);
@@ -32,7 +39,7 @@ validateEmail= ()=>{
 }
 
 </script>
-
+<div id="customerEntryFull">
 <div id="customerEntry">
 <div class="ui container" id="newCusFormMain">
   <div class="ui huge header">Create a New Customer</div>
@@ -54,7 +61,8 @@ validateEmail= ()=>{
     <input id="cusEmail" type="email" name="cusEmail" placeholder="Email">
   </div>
   <button onclick='addToTable()' class="ui button" type="submit">Submit</button>
-  <a href="/newEmail"><button class="ui button">Blast</button></a>
+  <a href="/newEmail"><div class="ui button">Blast</div></a>
+  <div onclick='logout()' class="ui button">logout</div>
   </form>
 </div>
 
@@ -73,5 +81,6 @@ validateEmail= ()=>{
 </table>
 
 </div>
+
 
 <%include partials/footer %>

@@ -6,6 +6,20 @@
     #emailForm {
       margin-top: 50px;
     }
+    body {
+      background-image: url('../johnbull.png');
+    }
+    div#customerEntryFull {
+    top: 20%;
+    position: relative;
+    }
+
+
+    body {
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
 
     div#emailForm {
     text-align: center;
@@ -15,10 +29,7 @@
     top: 30%;
     position: relative;
    }
-   div#customerEntry {
-    top: 20%;
-    position: relative;
-}
+
 
    div#newCusFormMain {
     text-align: center;
