@@ -162,15 +162,8 @@ for (let i =0; i<people.length;i++){
    to: people[i][3], // list of receivers
    subject: header, // Subject line
    text: `Dear ${people[i][0]}\n` + message, // plaintext body
-   html: `Dear ${people[i][0]}<br>,`+ message+` <div onclick="(function(){
-  var request = new XMLHttpRequest();
-  request.open('POST', 'https://mighty-mountain-31348.herokuapp.com/jbsssss', true);
-  request.setRequestHeader('Content-Type', 'application/x-www-form-  urlencoded; charset=UTF-8');
-request.send({data:'aaa'});
-})()">
-    Interested
-  </div>
-`, // html body
+   html: `Dear ${people[i][0]}<br>,`+ message+`<a href="https://mighty-mountain-31348.herokuapp.com/redirect/` + ""+people+""+ `>Interested</a>`
+, // html body
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -183,6 +176,15 @@ transporter.sendMail(mailOptions, function(error, info){
 }
 
 });
+app.get('/redirect',function(req,res){
+  console.log("visited")
+
+})
+
+app.get('/redirect/*',function(req,res){
+  console.log("visited2")
+
+})
 
 app.get('*', (req,res)=>{
     res.redirect('/');
