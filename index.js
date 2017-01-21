@@ -212,7 +212,9 @@ app.get('/redirect/*', function(req, res) {
       var email =  fullUrl.slice(fullUrl.lastIndexOf('/')+1);
       console.log(email);
       time = new Date();
-      Customer.update({cusEmail: email}, {$push: {clicks: time}}, done );
+      Customer.update({cusEmail: email}, {$push: {clicks: time}}, function(err, model) {
+        console.log(err);
+      });
       res.redirect('https://www.google.com/')
     });
 
