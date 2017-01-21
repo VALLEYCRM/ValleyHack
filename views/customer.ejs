@@ -8,7 +8,7 @@
         address = $("#cusAddress").val();
         emails = $("#cusEmail").val();
 
-    
+
     $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
 };
 </script>
@@ -30,7 +30,7 @@
   </div>
   <div class="field">
     <label>Email</label>
-    <input id"cusEmail" type="text" name="cusEmail" placeholder="Email">
+    <input id="cusEmail" type="text" name="cusEmail" placeholder="Email">
   </div>
   <button onclick='addToTable()' class="ui button" type="submit">Submit</button>
   </form>
@@ -54,10 +54,8 @@
 <script>
 
 $.post('/getCustomerInfo',{},function(err,res){
-  console.log(err,res);
-  res
+  console.log(err,res[0]);
 });
-info=[{name:'johnbl', email:"ksjdhf@kjdshfj.com"}, {name:'johnbl3', email:"rerdhf@kjdshfj.com"}]
 for (let i=0; i<info.length;i++){
   $('tbody').prepend(`<tr><td>${info[i].name}</td><td>${info[i].email}</td><td>${"BLAH BLAH"}</td></tr>`);
 }
