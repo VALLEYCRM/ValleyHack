@@ -210,10 +210,10 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
           milliseconds += 604800000;
         };
         var nextEmail = (new Date(milliseconds));
-        if (nextScheduled-currentMill<604800000){
-          return;
-        }
-        Customer.update({cusEmail: people[i][3]}, {nextScheduled:nextEmail},function(err, response){
+        // if (nextScheduled-currentMill<604800000){
+        //   return;
+        // }
+        Customer.update({cusEmail: people[i][3]}, {nextScheduled:milliseconds},function(err, response){
           console.log(err,response);
         });
 
