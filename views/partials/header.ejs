@@ -8,42 +8,9 @@
     <meta name="viewpocustomerrt" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link type="text/css" href="./styles/styles.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-    <script>console.log("TESTINGF!@@@@")</script>
     <!-- Site Properties -->
     <title>Homepage - Semantic</title>
 
     <script src="assets/library/jquery.min.js">console.log('r8unnoing')
-     const blast = () => {
-       toBlast = {message:$("#message").val(),header:$("#header").val(), people:{}}
 
-       $.each($('input[type="checkbox"]'),function(i){
-         if ($(this).prop('checked')){
-           toBlast.people[i]=[];
-           children = $(this).parent().parent().children();
-         $.each(children,function(){toBlast.people[i].push($(this)[0].innerHTML))})
-       }})
-    console.log('blasting!')
-      $.post("/newEmail",toBlast,(res,err)=>{
-        console.log(res,err);
-      })
-    };
 </script>
-    <script>
-    console.log('r8unnoing')
-     const blast = () => {
-       toBlast = {message:$("#message").val(),header:$("#header").val(), people:{}}
-
-       $.each($('input[type="checkbox"]'),function(i){
-         if ($(this).prop('checked')){
-           toBlast.people[i]=[];
-           children = $(this).parent().parent().children();
-         $.each(children,function(){toBlast.people[i].push($(this)[0].innerHTML))})
-       }})
-    console.log('blasting!')
-      $.post("/newEmail",toBlast,(res,err)=>{
-        console.log(res,err);
-      })
-    };
-
-
-    </script>

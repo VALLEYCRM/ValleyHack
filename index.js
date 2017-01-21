@@ -185,25 +185,69 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
 
   for (let i = 0; i < people.length; i++) {
 
+    //check if click are preasent in customer DB
+    Customer.find({
+      cusEmail: people[i][3]
+    }, function(err, person) {
+      var clickArray = person[0].clicks;
+      if (!!clickArray.length) {
 
-    var mailOptions = {
-      from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
-      to: people[i][3], // list of receivers
-      subject: header, // Subject line
-      text: `Dear ${people[i][0]}\n` + message, // plaintext body
-      html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" + people[i][3] + "'" + ">Interested</a>", // html body
-    };
+        var latestTime = clickArray[clickArray.length - 1];
+        var milliseconds = latestTime.getTime();
+        var currentMill = (new Date()).getTime();
+        while (milliseconds < currentMill) {
+          milliseconds += 604800000;
+        };
+        var nextEmail = (new Date(milliseconds));
 
-    transporter.sendMail(mailOptions, function(error, info) {
-      if (error) {
-        return console.log(error);
+
+        console.log(latestTime, "<Letest time", nextEmail, "This the next week", people[i][3]);
+        var CronJob = require('cron').CronJob;
+
+        var job = new CronJob(nextEmail, function() {
+
+
+
+          var mailOptions = {
+            from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
+            to: people[i][3], // list of receivers
+            subject: header, // Subject line
+            text: `Dear ${people[i][0]}\n` + message, // plaintext body
+            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" + people[i][3] + "'" + ">Interested</a>", // html body
+          };
+
+          transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+              return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+          });
+        }, function() {
+          console.log("Done");
+        }, true)
+      } else {
+        
+          var mailOptions = {
+            from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
+            to: people[i][3], // list of receivers
+            subject: header, // Subject line
+            text: `Dear ${people[i][0]}\n` + message, // plaintext body
+            html: `Dear ${people[i][0]},<br>` + message + "<br><a href='https://mighty-mountain-31348.herokuapp.com/redirect/" + people[i][3] + "'" + ">Interested</a>", // html body
+          };
+
+          transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+              return console.log(error);
+            }
+            console.log('Message sent: ' + info.response);
+          });
       }
-      console.log('Message sent: ' + info.response);
     });
 
   }
 
 });
+
 
 
 app.get('/redirect/*', function(req, res) {

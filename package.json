@@ -21,12 +21,14 @@
     "bluebird": "^3.4.7",
     "body-parser": "^1.16.0",
     "client-sessions": "^0.7.0",
+    "cron": "^1.2.1",
     "dotenv": "^4.0.0",
     "ejs": "^2.5.5",
     "express": "^4.14.0",
     "express-stormpath": "^3.1.9",
     "mo": "^1.7.3",
     "mongoose": "^4.7.7",
+    "node-cron": "^1.1.2",
     "nodemailer": "^2.7.0"
   },
   "devDependencies": {
