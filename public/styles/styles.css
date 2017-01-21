@@ -1,4 +1,8 @@
 
+    #orgNameForm {
+        width: 550px;
+    }
+
     .hidden.menu {
       display: none;
     }
@@ -77,4 +81,3 @@
         font-size: 1.5em;
       }
     }
-  
