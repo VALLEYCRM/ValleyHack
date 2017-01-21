@@ -4,21 +4,21 @@
   <form class="ui form" action="/newCustomer" method="POST">
   <div class="field">
     <label>First Name</label>
-    <input type="text" name="cusFirstName" placeholder="First Name">
+    <input id="cusFirstName" type="text" name="cusFirstName" placeholder="First Name">
   </div>
   <div class="field">
     <label>Last Name</label>
-    <input type="text" name="cusLastName" placeholder="Last Name">
+    <input id="cusLastName" type="text" name="cusLastName" placeholder="Last Name">
   </div>
   <div class="field">
     <label>Address</label>
-    <input type="text" name="cusAddress" placeholder="Address">
+    <input id="cusAddress" type="text" name="cusAddress" placeholder="Address">
   </div>
   <div class="field">
     <label>Email</label>
-    <input type="text" name="cusEmail" placeholder="Email">
+    <input id"cusEmail" type="text" name="cusEmail" placeholder="Email">
   </div>
-  <button class="ui button" type="submit">Submit</button>
+  <button onClick = '' class="ui button" type="submit">Submit</button>
   </form>
 </div>
 
@@ -27,8 +27,9 @@
  <thead>
    <tr>
      <th>Name</th>
+     <th>Last</th>
+     <th>Address</th>
      <th>Email</th>
-     <th>Notes</th>
    </tr>
  </thead>
  <tbody>
@@ -37,8 +38,16 @@
 
 
 <script>
+const addToTable = () => {
+  const name = $("#cusFirstName").val(),
+        surname = $("#cusLastName").val(),
+        address = $("#cusAddress").val(),
+        emails = $("#cusEmail").val();
+    $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
+};
 $.post('/getCustomerInfo',{},function(err,res){
   console.log(err,res);
+  res
 });
 info=[{name:'johnbl', email:"ksjdhf@kjdshfj.com"}, {name:'johnbl3', email:"rerdhf@kjdshfj.com"}]
 for (let i=0; i<info.length;i++){
