@@ -57,14 +57,7 @@ app.get("/", function(req, res) {
 });
 
 app.get("/customer:id", stormpath.loginRequired, function(req, res) {
-  console.log('johnbullll',req.params.orgName );
-  Organization.findById(req.params.orgName, function(err, foundOrganization) {
-  if(err) {
-    console.log(err);
-  } else {
-    res.render("customer", {organization: foundOrganization});
-  }
-});
+    res.render("customer", {organization: req.params.orgName});
 });
 
 app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
