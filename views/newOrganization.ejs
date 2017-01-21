@@ -1,70 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-  <head>
-    <!-- Standard Meta -->
-    <link type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.6/semantic.min.css" rel="stylesheet">
-
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <link type="text/css" href="./styles/styles.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-    <!-- Site Properties -->
-    <title>Homepage - Semantic</title>
-
-    <script src="assets/library/jquery.min.js"></script>
-
-    <script>
-      $(document)
-        .ready(function() {
-          // fix menu when passed
-          $('.masthead')
-            .visibility({
-              once: false,
-              onBottomPassed: function() {
-                $('.fixed.menu').transition('fade in');
-              },
-              onBottomPassedReverse: function() {
-                $('.fixed.menu').transition('fade out');
-              }
-            });
-          // create sidebar and attach to menu open
-          $('.ui.sidebar')
-            .sidebar('attach events', '.toc.item');
-        });
-
-    </script>
-  </head>
-
-  <body>
-
-    <!-- Following Menu -->
-    <div class="ui large top fixed hidden menu">
-      <div class="ui container">
-        <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
-        <div class="right menu">
-          <div class="item">
-            <a class="ui button">Log in</a>
-          </div>
-          <div class="item">
-            <a class="ui primary button">Sign Up</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sidebar Menu -->
-    <div class="ui vertical inverted sidebar menu">
-      <a class="active item">Home</a>
-      <a class="item">Work</a>
-      <a class="item">Company</a>
-      <a class="item">Careers</a>
-    </div>
+<% include partials/header %>
 
     <div class="ui container" id="orgNameForm">
       <form class="ui form" action="/newOrganization" method="POST" >
@@ -90,3 +24,4 @@
       <a class="item">Login</a>
       <a class="item">Signup</a>
     </div>
+<%include partials/footer %>

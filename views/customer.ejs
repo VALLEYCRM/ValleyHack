@@ -1,3 +1,4 @@
+<% include partials/header %>
 <div class="ui container" id="newCusFormMain">
   <div class="ui huge header">Create a New Customer</div>
   <form class="ui form" action="/newCustomer" method="POST">
@@ -20,3 +21,32 @@
   <button class="ui button" type="submit">Submit</button>
   </form>
 </div>
+
+
+<table class="ui selectable celled table">
+ <thead>
+   <tr>
+     <th>Name</th>
+     <th>Email</th>
+     <th>Notes</th>
+   </tr>
+ </thead>
+ <tbody>
+ </tbody>
+</table>
+
+
+<script>
+info=[{name:'johnbl', email:"ksjdhf@kjdshfj.com"}, {name:'johnbl3', email:"rerdhf@kjdshfj.com"}]
+for (let i=0; i<info.length;i++){
+  $('tbody').prepend(`<tr><td>${info[i].name}</td><td>${info[i].email}</td><td>${"BLAH BLAH"}</td></tr>`);
+}
+if (!localStorage.getItem('customerInfo')){
+ /*$.get('/getUserInfo', (response, err) => {
+    const customers = response;
+   // [ {name:'blah blah', email:'skjhdfkjs@dlkjha.com'},...]
+  });*/
+}
+localStorage.setItem('customerInfo','pen');
+</script>
+<%include partials/footer %>
