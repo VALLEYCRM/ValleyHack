@@ -71,6 +71,7 @@ var Customer = mongoose.model("Customer", customerSchema);
 app.get("/", function(req, res) {
   res.render("landing");
 });
+
 app.post("/getCustomerInfo",function(req, res){
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
     Customer.findAll({organization:Organization.orgName},function(err,people){
