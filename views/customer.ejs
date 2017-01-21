@@ -54,7 +54,7 @@
 <script>
 
 $.post('/getCustomerInfo',{},function(err,res){
-  console.log(err,res[0]);
+  console.log(err);
 });
 for (let i=0; i<info.length;i++){
   $('tbody').prepend(`<tr><td>${info[i].name}</td><td>${info[i].email}</td><td>${"BLAH BLAH"}</td></tr>`);
