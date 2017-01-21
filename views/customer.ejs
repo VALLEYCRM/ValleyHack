@@ -3,13 +3,12 @@
 <script>
  addToTable = () => {
    console.log('ADDTOPTABLE!!');
-  const name = $("#cusFirstName").val(),
-        surname = $("#cusLastName").val(),
-        address = $("#cusAddress").val(),
+   name = $("#cusFirstName").val();
+        surname = $("#cusLastName").val();
+        address = $("#cusAddress").val();
         emails = $("#cusEmail").val();
-        if ( !name||!surname ||!address ||!emails){
-            return;
-        }
+
+    
     $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
 };
 </script>
