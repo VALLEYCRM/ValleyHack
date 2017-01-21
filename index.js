@@ -74,7 +74,7 @@ app.get("/", function(req, res) {
 
 app.post("/getCustomerInfo", stormpath.loginRequired, function(req, res){
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
-    Customer.findAll({organization:Organization.orgName},function(err,people){
+    Customer.find({organization:Organization.orgName},function(err,people){
         console.log(err,people);
     })
   })
