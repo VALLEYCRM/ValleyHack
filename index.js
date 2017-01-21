@@ -80,6 +80,23 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
   });
 });
 
+
+app.post("/customer", stormpath.loginRequired, function(req, res) {
+  var custFirstName = req.body.custFirstName;
+  var custLastName = req.body.custLastName;
+  var custAddress = req.body.custAddress;
+  var cusEmail = req.body.cusEmail;
+  var newOrganization = {custFirstName, custLastName, custAddress, cusEmail,};
+
+  Customer.create(newCustomer, function(err, newlyCreated) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.redirect("/customer" + orgName);
+    }
+  });
+})
+
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
 });
