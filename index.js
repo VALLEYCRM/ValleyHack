@@ -22,7 +22,7 @@ app.get("/", function(req, res) {
   res.render("landing");
 });
 
-app.get("newOrganization", function(req, res) {
+app.get("/newOrganization", function(req, res) {
   res.render("newOrganization");
 });
 
