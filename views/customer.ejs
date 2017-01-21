@@ -18,7 +18,7 @@
     <label>Email</label>
     <input id"cusEmail" type="text" name="cusEmail" placeholder="Email">
   </div>
-  <button onClick = '' class="ui button" type="submit">Submit</button>
+  <button onClick = 'addToTable()' class="ui button" type="submit">Submit</button>
   </form>
 </div>
 
@@ -43,6 +43,9 @@ const addToTable = () => {
         surname = $("#cusLastName").val(),
         address = $("#cusAddress").val(),
         emails = $("#cusEmail").val();
+        if ( !name||!surname ||!address ||!emails){
+            return;
+        }
     $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
 };
 $.post('/getCustomerInfo',{},function(err,res){
