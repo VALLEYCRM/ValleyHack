@@ -201,7 +201,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
       var nextScheduled = person[0].nextScheduled;
       var currentMill = (new Date()).getTime();
       var dontEmail = (currentMill - lastEmailed) < 604800000;
-      if (1==1/*!!clickArray.length /*&& !dontEmail*/) {
+      if (1==2/*!!clickArray.length /*&& !dontEmail*/) {
 
         var latestTime = clickArray[clickArray.length - 1];
         var milliseconds = latestTime.getTime();
@@ -245,7 +245,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
 
           console.log("Done");
         }, true)
-      } else if(!dontEmail) {
+      } else if(1==1/*!dontEmail*/) {
 
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
