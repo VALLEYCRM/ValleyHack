@@ -209,8 +209,11 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
 app.get('/redirect/*', function(req, res) {
       console.log("visited2");
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-      console.log("this should be email", fullUrl.slice(fullUrl.lastIndexOf('/')));
-       res.redirect('https://www.google.com/')
+      var email =  fullUrl.slice(fullUrl.lastIndexOf('/')+1);
+      console.log(email);
+      time = new Date();
+      Customer.update({cusEmail: email}, {$push: {clicks: time}}, done );
+      res.redirect('https://www.google.com/')
     });
 
     app.get('*', (req, res) => {
