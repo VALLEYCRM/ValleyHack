@@ -4,7 +4,8 @@
   "description": "This is a simple readme...",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -25,5 +26,8 @@
     "express-stormpath": "^3.1.9",
     "mo": "^1.7.3",
     "mongoose": "^4.7.7"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
