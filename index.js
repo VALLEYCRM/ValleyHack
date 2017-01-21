@@ -87,7 +87,7 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
-  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname} function(err, Organization) {
+  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
     console.log("here is ORG!", Organization);
     var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
     if (err) {
