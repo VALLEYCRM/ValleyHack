@@ -201,7 +201,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
       var nextScheduled = person[0].nextScheduled;
       var currentMill = (new Date()).getTime();
       var dontEmail = (currentMill - lastEmailed) < 604800000;
-      if (1==2/*!!clickArray.length /*&& !dontEmail*/) {
+      if (!!clickArray.length) {
 
         var latestTime = clickArray[clickArray.length - 1];
         var milliseconds = latestTime.getTime();
@@ -245,7 +245,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
 
           console.log("Done");
         }, true)
-      } else if(1==1/*!dontEmail*/) {
+      } else if(!dontEmail) {
 
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
@@ -277,19 +277,13 @@ app.get('/redirect/*', function(req, res) {
       console.log("visited2");
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
       var email =  fullUrl.slice(fullUrl.lastIndexOf('/')+1);
-      website1 = fullUrl.slice(54);
-      website = website1.slice(0,website1.indexOf("/"))
 
-
-
-
-
-      console.log("EMAIL", email,"fu",fullUrl,"website", website);
+    //  console.log("EMAIL", email,"fu",fullUrl,"website", website);
       time = new Date();
       Customer.update({cusEmail: email}, {$push: {clicks: time}}, function(err, model) {
         console.log(err);
       });
-      res.redirect(website);
+      res.redirect("google.com");
     });
 
     app.get('*', (req, res) => {
