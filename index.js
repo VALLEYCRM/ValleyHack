@@ -82,20 +82,27 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
 
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
-  console.log(' got to newCust');
+  console.log('JOHNBULLISWRONG!', req.body.orgName);
   var custFirstName = req.body.custFirstName;
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
-  var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
+  Organization.(xxx, function(err, newlyCreated) {
+    var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
 
-  Customer.create(newCustomer, function(err, newlyCreated) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/customer" + orgName);
-    }
+      Customer.create(newCustomer, function(err, newlyCreated) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.redirect("/customer" + orgName);
+        }
+      });
+
   });
+}
 })
 
 app.listen(process.env.PORT || 3000, function() {
