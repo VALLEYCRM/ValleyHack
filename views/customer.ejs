@@ -59,7 +59,7 @@
 
 if (!localStorage.getItem('customerInfo')){
   $.post('/getCustomerInfo',{},function(res,err){
-    console.log(res[0],err);
+    console.log(res,err);
     localStorage.setItem('customerInfo',JSON.stringify(res));
   });
 }
