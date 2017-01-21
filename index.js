@@ -112,13 +112,13 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
         if (err) {
           console.log(err);
         } else {
-          res.redirect("/customer" + orgName);
+          //res.redirect("/customer" + orgName);
         }
       });
 
   };
 
-})
+  })
 })
 
 app.listen(process.env.PORT || 3000, function() {
