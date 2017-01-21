@@ -117,15 +117,17 @@
         </div>
       </div>
 
-      <table class="ui selectable celled table">
+<table class="ui selectable celled table">
  <thead>
    <tr>
      <th>Name</th>
-     <th>Status</th>
+     <th>Email</th>
      <th>Notes</th>
    </tr>
  </thead>
  <tbody>
+
+
    <tr>
      <td>John</td>
      <td>No Action</td>
@@ -158,6 +160,27 @@
    </tr>
  </tbody>
 </table>
+
+
+<h1><%= title %></h1>
+<ul>
+<% for(var i=0; i<supplies.length; i++) {%>
+  <li><%= supplies[i] %></li>
+<% } %>
+</ul>
+
+<script>
+if (!localStorage.getItem('customerInfo')){
+  
+ /*$.get('/getUserInfo', (response, err) => {
+    const customers = response;
+   // [ {name:'blah blah', email:'skjhdfkjs@dlkjha.com'},...]
+  });*/
+
+}
+
+localStorage.setItem('customerInfo','pen');
+</script>
 
 <!--
       <div class="ui vertical stripe quote segment">
