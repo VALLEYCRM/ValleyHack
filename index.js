@@ -70,7 +70,7 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
   Organization.create(newOrganization, function(err, newlyCreated) {
     if (err) {
       console.log(err);
-    } else {d
+    } else {
       res.redirect("/customer")
     }
   });
