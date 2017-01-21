@@ -60,12 +60,12 @@ var customerSchema = new mongoose.Schema({
 });
 
 const organizationalDataAlreadyGiven = (req, res, next) => {
-
+  console.log('running middleware!');
   Organization.findOne({
     givenName: req.user.givenName,
     surname: req.user.surname
   }, function(err, Organization) {
-    console.log(Organization);
+    console.log("Organization", Organization);
     if (Organization) {
       res.redirect('/customer' + Organization.orgName)
     } else {
@@ -102,11 +102,11 @@ app.get("/customer:id", stormpath.loginRequired, function(req, res) {
   });
 });
 
-app.get("/newOrganization", stormpath.loginRequired, function(req, res) {
+app.get("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyGiven, function(req, res) {
   res.render("newOrganization");
 });
 
-app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyGiven, function(req, res) {
+app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
   console.log("MY BODY!!!", req.body);
   var orgName = req.body.orgName;
   var givenName = req.body.givenName;
@@ -206,8 +206,6 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
 
         var job = new CronJob(nextEmail, function() {
 
-
-
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
             to: people[i][3], // list of receivers
@@ -226,7 +224,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
           console.log("Done");
         }, true)
       } else {
-        
+
           var mailOptions = {
             from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
             to: people[i][3], // list of receivers
@@ -263,6 +261,9 @@ app.get('/redirect/*', function(req, res) {
     });
 
     app.get('*', (req, res) => {
+      console.log('caught a case!')
+      var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+console.log(fullUrl);
       res.redirect('/');
     });
 

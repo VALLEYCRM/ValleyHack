@@ -1,6 +1,18 @@
 <% include partials/header %>
 
 <script>
+
+$.post('/getCustomerInfo',{},function(res,err){
+  console.log(res,err);
+  localStorage.setItem('customerInfo',JSON.stringify(res));
+
+  info=JSON.parse(localStorage.getItem('customerInfo'));
+  for (let i=0; i<info.length;i++){
+    $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].custLastName}</td><td>${info[i].custAddress}</td><td>${info[i].cusEmail}</td></tr>`);
+  }
+
+});
+
  addToTable = () => {
    console.log('ADDTOPTABLE!!');
    name = $("#cusFirstName").val();
@@ -21,6 +33,7 @@ validateEmail= ()=>{
 
 </script>
 
+<div id="customerEntry">
 <div class="ui container" id="newCusFormMain">
   <div class="ui huge header">Create a New Customer</div>
   <form class="ui form" action="/newCustomer" method="POST" onsubmit="return validateEmail()">
@@ -41,6 +54,7 @@ validateEmail= ()=>{
     <input id="cusEmail" type="email" name="cusEmail" placeholder="Email">
   </div>
   <button onclick='addToTable()' class="ui button" type="submit">Submit</button>
+  <a href="/newEmail"><button class="ui button">Blast</button></a>
   </form>
 </div>
 
@@ -58,19 +72,6 @@ validateEmail= ()=>{
  </tbody>
 </table>
 
+</div>
 
-<script>
-  $.post('/getCustomerInfo',{},function(res,err){
-    console.log(res,err);
-    localStorage.setItem('customerInfo',JSON.stringify(res));
-
-    info=JSON.parse(localStorage.getItem('customerInfo'));
-    for (let i=0; i<info.length;i++){
-      $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].custLastName}</td><td>${info[i].custAddress}</td><td>${info[i].cusEmail}</td></tr>`);
-    }
-
-  });
-
-
-</script>
 <%include partials/footer %>

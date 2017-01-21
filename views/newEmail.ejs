@@ -26,17 +26,15 @@ const blast = () => {
 };
 </script>
 
-
-<div class="ui container" id="emailForm">
+<div class="ui form" id="emailForm">
   <div class="field">
-    <label>Email Header</label>
+    <h1 class="lebelText">Email Header</h1>
     <input id="header" type="text" name="emailHeader" placeholder="Email Header">
   </div>
   <div class="field">
-    <label>Email Body</label>
+    <h1 class="labelText">Email Body</h1>
     <div class="field">
-        <label>Text</label>
-        <textarea id="message"></textarea>
+        <textarea id="message" placeholder="Type your email here."></textarea>
       </div>  </div>
   <button onclick='blast()' class="ui button" >Blast</button>
 </div>

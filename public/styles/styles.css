@@ -7,6 +7,25 @@
       margin-top: 50px;
     }
 
+    div#emailForm {
+    text-align: center;
+    }
+
+    div#orgNameForm {
+    top: 30%;
+    position: relative;
+   }
+   div#customerEntry {
+    top: 20%;
+    position: relative;
+}
+
+   div#newCusFormMain {
+    text-align: center;
+}
+    form.ui.form {
+        text-align: center;
+    }
     .hidden.menu {
       display: none;
     }
