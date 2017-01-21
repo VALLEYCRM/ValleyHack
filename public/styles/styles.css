@@ -6,6 +6,7 @@
     #emailForm {
       margin-top: 50px;
       width: 80%;
+      margin: 0 auto;
     }
     body {
       background-image: url('../johnbull.png');
