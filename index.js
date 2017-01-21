@@ -65,7 +65,7 @@ app.get("/customer:id", stormpath.loginRequired, function(req, res) {
     res.render("customer", {organization: foundOrganization});
   }
 });
-
+});
 
 app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
   res.render("newOrganization");
@@ -82,7 +82,7 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/customer" + orgName)
+      res.redirect("/customer" + orgName);
     }
   });
 });
