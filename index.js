@@ -176,14 +176,11 @@ transporter.sendMail(mailOptions, function(error, info){
 }
 
 });
-app.get('/redirect',function(req,res){
-  console.log("visited")
 
-})
 
 app.get('/redirect/*',function(req,res){
-  console.log("visited2")
-
+  console.log("visited2");
+res.redirect('https://www.google.com/')
 })
 
 app.get('*', (req,res)=>{
