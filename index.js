@@ -1,8 +1,11 @@
 var express = require("express"),
     stormpath = require("express-stormpath"),
     bodyParser = require("body-parser"),
+    MongoClient = require('mongodb').MongoClient,
     mongoose = require("mongoose");
     app = express();
+
+    mongoose.Promise = require('bluebird');
 
     let URL = "mongodb://heroku_j1647s3l:tkmie8pbencj50ljm1d688h87e@ds117919.mlab.com:17919/heroku_j1647s3l";
 
