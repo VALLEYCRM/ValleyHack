@@ -112,7 +112,7 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, organization) {
-    console.log("here is ORG!", Organization);
+    console.log("here is ORG!", organization);
     var newCustomer = {custFirstName, custLastName, custAddress, cusEmail, organization:organization.orgName};
     if (err) {
       console.log(err);
