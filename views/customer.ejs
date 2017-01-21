@@ -1,4 +1,18 @@
 <% include partials/header %>
+
+<script>
+const addToTable = () => {
+  const name = $("#cusFirstName").val(),
+        surname = $("#cusLastName").val(),
+        address = $("#cusAddress").val(),
+        emails = $("#cusEmail").val();
+        if ( !name||!surname ||!address ||!emails){
+            return;
+        }
+    $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
+};
+</script>
+
 <div class="ui container" id="newCusFormMain">
   <div class="ui huge header">Create a New Customer</div>
   <form class="ui form" action="/newCustomer" method="POST">
@@ -38,16 +52,7 @@
 
 
 <script>
-const addToTable = () => {
-  const name = $("#cusFirstName").val(),
-        surname = $("#cusLastName").val(),
-        address = $("#cusAddress").val(),
-        emails = $("#cusEmail").val();
-        if ( !name||!surname ||!address ||!emails){
-            return;
-        }
-    $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
-};
+
 $.post('/getCustomerInfo',{},function(err,res){
   console.log(err,res);
   res
