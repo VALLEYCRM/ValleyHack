@@ -1,7 +1,8 @@
 <% include partials/header %>
 
 <script>
-const addToTable = () => {
+ addToTable = () => {
+   console.log('ADDTOPTABLE!!');
   const name = $("#cusFirstName").val(),
         surname = $("#cusLastName").val(),
         address = $("#cusAddress").val(),
@@ -32,7 +33,7 @@ const addToTable = () => {
     <label>Email</label>
     <input id"cusEmail" type="text" name="cusEmail" placeholder="Email">
   </div>
-  <button onclick = 'addToTable()' class="ui button" type="submit">Submit</button>
+  <button onclick='addToTable()' class="ui button" type="submit">Submit</button>
   </form>
 </div>
 
