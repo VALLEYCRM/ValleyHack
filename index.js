@@ -180,6 +180,8 @@ transporter.sendMail(mailOptions, function(error, info){
 
 app.get('/redirect/*',function(req,res){
   console.log("visited2");
+   var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+   console.log(fullUrl);
 res.redirect('https://www.google.com/')
 })
 
