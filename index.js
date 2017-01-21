@@ -48,6 +48,7 @@ var customerSchema = new mongoose.Schema({
   custLastName : String,
   custAddress : String,
   cusEmail : String,
+  organization: String,
 });
 
 const organizationalDataAlreadyGiven =(req,res,next) =>{
@@ -69,6 +70,13 @@ var Customer = mongoose.model("Customer", customerSchema);
 
 app.get("/", function(req, res) {
   res.render("landing");
+});
+app.post("/getCustomerInfo",function(req, res){
+  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
+    Customer.findAll({organization:Organization.orgName},function(err,people){
+        console.log(err,people);
+    })
+  })
 });
 
 app.get("/customer:id", stormpath.loginRequired, function(req, res) {
@@ -102,9 +110,9 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
-  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
+  Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, organization) {
     console.log("here is ORG!", Organization);
-    var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
+    var newCustomer = {custFirstName, custLastName, custAddress, cusEmail, organization:organization.orgName};
     if (err) {
       console.log(err);
     } else {
