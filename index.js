@@ -56,6 +56,11 @@ app.get("/", function(req, res) {
   res.render("landing");
 });
 
+app.get("/customer", stormpath.loginRequired, function(req, res) {
+  res.render("customer");
+});
+
+
 app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
   res.render("newOrganization");
 });
