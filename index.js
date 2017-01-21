@@ -59,6 +59,7 @@ app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
 });
 
 app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
+  console.log("MY BODY!!!", req.body);
   var orgName = req.body.orgName;
   var givenName = req.body.givenName;
   var surname = req.body.surname;
