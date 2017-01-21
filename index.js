@@ -82,7 +82,7 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
 
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
-  console.log('JOHNBULLISWRONG!', req.body.orgName);
+  console.log('JOHNBULLISWRONG!', req.user);
   var custFirstName = req.body.custFirstName;
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
