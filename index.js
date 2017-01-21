@@ -82,11 +82,12 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
 
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
+  console.log(' got to newCust');
   var custFirstName = req.body.custFirstName;
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
-  var newOrganization = {custFirstName, custLastName, custAddress, cusEmail,};
+  var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
 
   Customer.create(newCustomer, function(err, newlyCreated) {
     if (err) {
