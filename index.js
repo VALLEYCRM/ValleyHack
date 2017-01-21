@@ -81,7 +81,7 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
 });
 
 
-app.post("/customer", stormpath.loginRequired, function(req, res) {
+app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   var custFirstName = req.body.custFirstName;
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
