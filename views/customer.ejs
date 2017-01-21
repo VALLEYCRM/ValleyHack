@@ -11,11 +11,19 @@
 
     $('tbody').prepend(`<tr><td>${name}</td><td>${surname}</td><td>${address}</td><td>${emails}</td></tr>`);
 };
+validateEmail= ()=>{
+  function validate(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  }
+  return validate($("#cusEmail").val());
+}
+
 </script>
 
 <div class="ui container" id="newCusFormMain">
   <div class="ui huge header">Create a New Customer</div>
-  <form class="ui form" action="/newCustomer" method="POST">
+  <form class="ui form" action="/newCustomer" method="POST" onsubmit="return validateEmail()">
   <div class="field">
     <label>First Name</label>
     <input id="cusFirstName" type="text" name="cusFirstName" placeholder="First Name">
@@ -30,7 +38,7 @@
   </div>
   <div class="field">
     <label>Email</label>
-    <input id="cusEmail" type="text" name="cusEmail" placeholder="Email">
+    <input id="cusEmail" type="email" name="cusEmail" placeholder="Email">
   </div>
   <button onclick='addToTable()' class="ui button" type="submit">Submit</button>
   </form>
@@ -52,23 +60,17 @@
 
 
 <script>
-
-
-
-
-
-//if (!localStorage.getItem('customerInfo')){
   $.post('/getCustomerInfo',{},function(res,err){
     console.log(res,err);
     localStorage.setItem('customerInfo',JSON.stringify(res));
 
     info=JSON.parse(localStorage.getItem('customerInfo'));
     for (let i=0; i<info.length;i++){
-      $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].cusEmail}</td><td>${"BLAH BLAH"}</td></tr>`);
+      $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].custLastName}</td><td>${info[i].custAddress}</td><td>${info[i].cusEmail}</td></tr>`);
     }
 
   });
-//}
+
 
 </script>
 <%include partials/footer %>

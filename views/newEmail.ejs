@@ -1,0 +1,77 @@
+<% include partials/header %>
+<script>
+const blast = () => {
+  toBlast = {
+    message: $("#message").val(),
+    header: $("#header").val(),
+    people: {}
+  }
+
+  $.each($('input[type="checkbox"]'), function(i) {
+    if ($(this).prop('checked')) {
+      toBlast.people[i] = [];
+      children = $(this).parent().parent().children();
+      $.each(children, function() {
+        toBlast.people[i].push($(this)[0].innerHTML)})
+    }
+  });
+  console.log('blasting!');
+
+  $.post("/newEmail", toBlast, (res, err) => {
+    console.log(res, err);
+  });
+
+
+
+};
+</script>
+
+
+<div class="ui container" id="emailForm">
+  <div class="field">
+    <label>Email Header</label>
+    <input id="header" type="text" name="emailHeader" placeholder="Email Header">
+  </div>
+  <div class="field">
+    <label>Email Body</label>
+    <div class="field">
+        <label>Text</label>
+        <textarea id="message"></textarea>
+      </div>  </div>
+  <button onclick='blast()' class="ui button" >Blast</button>
+</div>
+
+<table class="ui selectable celled table">
+ <thead>
+   <tr>
+     <th>Name</th>
+     <th>Last</th>
+     <th>Address</th>
+     <th>Email</th>
+     <th>
+       Email??
+     </th>
+   </tr>
+ </thead>
+ <tbody>
+ </tbody>
+</table>
+<script>
+  $.post('/getCustomerInfo',{},function(res,err){
+    console.log(res,err);
+    localStorage.setItem('customerInfo',JSON.stringify(res));
+
+    info=JSON.parse(localStorage.getItem('customerInfo'));
+    for (let i=0; i<info.length;i++){
+      $('tbody').prepend(`<tr><td>${info[i].custFirstName}</td><td>${info[i].custLastName}</td><td>${info[i].custAddress}</td><td>${info[i].cusEmail}</td><td>
+        <input type="checkbox" checked="checked">
+        </td></tr>`);
+    }
+
+  });
+
+
+</script>
+
+
+<% include partials/footer %>

@@ -1,10 +1,17 @@
 <% include partials/header %>
-
+<script>
+const logout=()=>{
+  var form = document.createElement('form');
+  form.method = "POST";
+  form.action = "/logout";
+  form.submit();
+};
+</script>
     <div class="ui container" id="orgNameForm">
       <form class="ui form" action="/newOrganization" method="POST" >
         <div class="field">
           <label>Organization Name</label>
-          <input type="text" name="orgName" placeholder="First Name">
+          <input pattern=".{3, 15}" type="text" name="orgName" placeholder="First Name">
         </div>
        <div class="field">
          <label>First Name</label>
@@ -24,4 +31,5 @@
       <a class="item">Login</a>
       <a class="item">Signup</a>
     </div>
+    <button onclick='logout()'>Logout</button>
 <%include partials/footer %>

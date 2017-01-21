@@ -4,6 +4,11 @@ var express = require("express"),
     MongoClient = require('mongodb').MongoClient,
     mongoose = require("mongoose");
     app = express();
+    require('dotenv').config();
+    nodemailer = require('nodemailer');
+    const transportString = `smtps://${process.env.MAIL_ADDRESS}%40gmail.com:${process.env.MAIL_PASS}@smtp.gmail.com`;
+    const transporter = nodemailer.createTransport(transportString);
+    console.log(transportString);
 
     mongoose.Promise = require('bluebird');
 
@@ -33,6 +38,8 @@ app.use(stormpath.init(app, {
   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET || 'secret',
   secretKey: process.env.STORMPATH_SECRET_KEY || "key",
   application: process.env.STORMPATH_URL || "url",
+  postLogoutRedirectUrl: '/'
+
 }));
 
 var organizationSchema = new mongoose.Schema({
@@ -99,11 +106,15 @@ app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyG
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/customer/" + orgName);
+      res.redirect("/customer" + orgName);
     }
   });
 });
 
+app.post('/logout', (req,res)=>{
+  console.log('logigin out')
+    res.redirect('/');
+})
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   console.log('JOHNBULLISWRONG!', req.body);
@@ -130,6 +141,44 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   })
 })
 
+app.get("/newEmail", stormpath.loginRequired, function(req, res) {
+    Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, organization) {
+    res.render(("newEmail"), {organization,})
+  })
+});
+
+app.post("/newEmail", stormpath.loginRequired, function(req, res) {
+
+  const message = req.body.message;
+  const header = req.body.header;
+  const people= req.body.people;
+  console.log(message,header,people);
+
+for (let i =0; i<people.length;i++){
+
+
+  var mailOptions = {
+   from: '"Krishan Arya :busts_in_silhouette:" <dummyacct101390@gmail.com>', // sender address
+   to: people[i][3], // list of receivers
+   subject: header, // Subject line
+   text: `Dear ${people[i][0]}\n` + message, // plaintext body
+   html: `Dear ${people[i][0]}<br>,`+ message+'<br> <a href = "google.com"> Interested?</a>', // html body
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+   if(error){
+       return console.log(error);
+   }
+   console.log('Message sent: ' + info.response);
+});
+
+}
+
+});
+
+app.get('*', (req,res)=>{
+    res.redirect('/');
+})
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
 });

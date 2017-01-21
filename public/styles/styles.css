@@ -3,6 +3,10 @@
         width: 550px;
     }
 
+    #emailForm {
+      margin-top: 50px;
+    }
+
     .hidden.menu {
       display: none;
     }
