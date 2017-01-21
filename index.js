@@ -22,9 +22,13 @@ app.get("/", function(req, res) {
   res.render("landing");
 });
 
-app.get("/newOrganization", function(req, res) {
+app.get("/newOrganization",stormpath.loginRequired, function(req, res) {
   res.render("newOrganization");
 });
+
+// app.post("/newOrganiztation", function(req, res) {
+//   rep.send()
+// })
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
