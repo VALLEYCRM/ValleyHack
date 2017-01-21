@@ -17,8 +17,9 @@ app.use(stormpath.init(app, {
 }));
 
 
+
 app.get("/", function(req, res) {
-  res.send("This will be the landing page.");
+  res.render("landing");
 });
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
