@@ -89,4 +89,4 @@ app.post("/newOrganization", stormpath.loginRequired, function(req, res) {
 
 app.listen(process.env.PORT || 3000, function() {
   console.log("The CRM Server is running");
-})
+});
