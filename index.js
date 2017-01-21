@@ -277,9 +277,14 @@ app.get('/redirect/*', function(req, res) {
       console.log("visited2");
       var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
       var email =  fullUrl.slice(fullUrl.lastIndexOf('/')+1);
-      var website= fullUrl.slice(53).slice(0,fullUrl.slice(53).indexOf('/'));
+      website1 = fullUrl.slice(54);
+      website = website1.slice(0,website1.indexOf("/"))
 
-      console.log("EMAIL", email,"fu",fullUrl);
+
+
+
+
+      console.log("EMAIL", email,"fu",fullUrl,"website", website);
       time = new Date();
       Customer.update({cusEmail: email}, {$push: {clicks: time}}, function(err, model) {
         console.log(err);
