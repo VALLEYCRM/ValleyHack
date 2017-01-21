@@ -75,7 +75,7 @@ app.get("/", function(req, res) {
 app.post("/getCustomerInfo", stormpath.loginRequired, function(req, res){
   Organization.findOne({givenName:req.user.givenName,surname:req.user.surname}, function(err, Organization) {
     Customer.find({organization:Organization.orgName},function(err,people){
-        console.log(err,people);
+        res.send(people);
     })
   })
 });
@@ -106,7 +106,7 @@ app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyG
 
 
 app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
-  console.log('JOHNBULLISWRONG!', req.user);
+  console.log('JOHNBULLISWRONG!', req.body);
   var custFirstName = req.body.custFirstName;
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
