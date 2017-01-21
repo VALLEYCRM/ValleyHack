@@ -87,22 +87,22 @@ app.post("/newCustomer", stormpath.loginRequired, function(req, res) {
   var custLastName = req.body.custLastName;
   var custAddress = req.body.custAddress;
   var cusEmail = req.body.cusEmail;
-  Organization.(xxx, function(err, newlyCreated) {
-    var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
-
-    if (err) {
-      console.log(err);
-    } else {
-      Customer.create(newCustomer, function(err, newlyCreated) {
-        if (err) {
-          console.log(err);
-        } else {
-          res.redirect("/customer" + orgName);
-        }
-      });
-
-  });
-}
+  // Organization.(xxx, function(err, newlyCreated) {
+  //   var newCustomer = {custFirstName, custLastName, custAddress, cusEmail,};
+  //
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     Customer.create(newCustomer, function(err, newlyCreated) {
+  //       if (err) {
+  //         console.log(err);
+  //       } else {
+  //         res.redirect("/customer" + orgName);
+  //       }
+  //     });
+  //
+  // });
+//}
 })
 
 app.listen(process.env.PORT || 3000, function() {
