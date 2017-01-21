@@ -19,11 +19,11 @@ app.use(stormpath.init(app, {
 
 
 app.get("/", function(req, res) {
-  res.render("index");
+  res.render("landing");
 });
 
 app.get("/newCustomer", function(req, res) {
-  res.send()  
+  res.send()
 });
 
 app.listen(process.env.PORT || 3000, function() {
