@@ -99,7 +99,7 @@ app.post("/newOrganization", stormpath.loginRequired, organizationalDataAlreadyG
     if (err) {
       console.log(err);
     } else {
-      res.redirect("/customer" + orgName);
+      res.redirect("/customer/" + orgName);
     }
   });
 });
