@@ -201,7 +201,7 @@ app.post("/newEmail", stormpath.loginRequired, function(req, res) {
       var nextScheduled = person[0].nextScheduled;
       var currentMill = (new Date()).getTime();
       var dontEmail = (currentMill - lastEmailed) < 604800000;
-      if (1/*!!clickArray.length /*&& !dontEmail*/) {
+      if (1==1/*!!clickArray.length /*&& !dontEmail*/) {
 
         var latestTime = clickArray[clickArray.length - 1];
         var milliseconds = latestTime.getTime();
