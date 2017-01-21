@@ -67,18 +67,18 @@
     </div>
 
     <div class="ui container" id="orgNameForm">
-      <form class="ui form" >
+      <form class="ui form" action="/newOrganization" method="POST" >
         <div class="field">
           <label>Organization Name</label>
           <input type="text" name="OrganizationName" placeholder="First Name">
         </div>
        <div class="field">
          <label>First Name</label>
-         <input type="text" name="givenName" placeholder="First Name">
+         <input type="text" name="givenName" placeholder="First Name" value="<%= user.givenName %>">
        </div>
        <div class="field">
          <label>Last Name</label>
-         <input type="text" name="sirname" placeholder="Last Name">
+         <input type="text" name="sirname" placeholder="Last Name" value="<%= user.sirname">
        </div>
        </div>
           <button class="ui button" type="submit">Submit</button>
